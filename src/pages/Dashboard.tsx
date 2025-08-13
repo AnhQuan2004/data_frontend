@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FileUp, Inbox } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/FileUpload";
@@ -32,11 +34,15 @@ export interface UploadedFile {
 const Dashboard = () => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [selectedFile, setSelectedFile] = useState<UploadedFile | null>(null);
+  const [projId, setProjId] = useState("solana");
+  const [uploader, setUploader] = useState("jason");
+  const [filename, setFilename] = useState("");
 
   const handleFileUpload = (file: UploadedFile, rawFile: File) => {
     const newFile = { ...file, rawFile };
     setUploadedFiles(prev => [...prev, newFile]);
     setSelectedFile(newFile);
+    setFilename(rawFile.name);
   };
 
   const handleFileSelect = (file: UploadedFile) => {
@@ -55,8 +61,9 @@ const Dashboard = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile.rawFile);
-    formData.append("proj_id", "solana");
-    formData.append("uploader", "jason");
+    formData.append("proj_id", projId);
+    formData.append("uploader", uploader);
+    formData.append("filename", filename);
 
     try {
       const response = await fetch("https://data-research-team-1094890588015.us-central1.run.app/upload", {
@@ -98,6 +105,36 @@ const Dashboard = () => {
               <>
                 <QualityCheck file={selectedFile} />
                 <DataPreview file={selectedFile} />
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="projId">Project ID</Label>
+                  <Input
+                    type="text"
+                    id="projId"
+                    placeholder="solana"
+                    value={projId}
+                    onChange={(e) => setProjId(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="uploader">Uploader</Label>
+                  <Input
+                    type="text"
+                    id="uploader"
+                    placeholder="jason"
+                    value={uploader}
+                    onChange={(e) => setUploader(e.target.value)}
+                  />
+                </div>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Label htmlFor="filename">Filename</Label>
+                  <Input
+                    type="text"
+                    id="filename"
+                    placeholder="Enter a filename"
+                    value={filename}
+                    onChange={(e) => setFilename(e.target.value)}
+                  />
+                </div>
                 <div className="flex justify-end pt-4">
                   <Button onClick={handleSubmit}>Submit</Button>
                 </div>
