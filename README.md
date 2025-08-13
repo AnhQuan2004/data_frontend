@@ -1,73 +1,83 @@
-# Welcome to your Lovable project
+# DataFlow Analytics Frontend
 
-## Project info
+This is the frontend application for the DataFlow Analytics platform, a tool for uploading, managing, and reviewing data files.
 
-**URL**: https://lovable.dev/projects/4f75726e-8470-4a96-9c17-f04c35eed2c6
+![Screenshot of the All Files page](public/image.png)
 
-## How can I edit this code?
+## Overview
 
-There are several ways of editing your application.
+This application provides a user-friendly interface for interacting with the data processing backend. It allows users to:
 
-**Use Lovable**
+*   **Upload CSV files:** Users can upload data files, providing a project ID, uploader name, and filename.
+*   **View all files:** A comprehensive view of all uploaded files, categorized into "Pending," "Approved," and "Rejected" tabs.
+*   **Approve or reject files:** Users can review pending files and approve or reject them with feedback.
+*   **Download files:** All files can be downloaded directly from the UI.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4f75726e-8470-4a96-9c17-f04c35eed2c6) and start prompting.
+## Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+*   **Framework:** React with Vite
+*   **Language:** TypeScript
+*   **Styling:** Tailwind CSS with shadcn/ui components
+*   **Routing:** React Router
+*   **Data Fetching:** TanStack Query
 
-**Use your preferred IDE**
+## Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+*   Node.js (v18 or higher)
+*   npm or bun
 
-Follow these steps:
+### Installation
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd data_frontend
+    ```
+3.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+    or
+    ```bash
+    bun install
+    ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Running the Development Server
 
-# Step 3: Install the necessary dependencies.
-npm i
+To start the development server, run:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Available Scripts
 
-**Use GitHub Codespaces**
+*   `npm run dev`: Starts the development server.
+*   `npm run build`: Builds the application for production.
+*   `npm run lint`: Lints the codebase for errors.
+*   `npm run preview`: Serves the production build locally for preview.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Key Features
 
-## What technologies are used for this project?
+### Dashboard (`/`)
 
-This project is built with:
+The main dashboard for uploading new files. It includes:
+*   A file upload component.
+*   Input fields for `proj_id`, `uploader`, and `filename`.
+*   A data preview and quality check for the selected file.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### All Files (`/all-files`)
 
-## How can I deploy this project?
+This page provides a comprehensive view of all files, organized into three tabs:
+*   **Pending:** Files awaiting review, with "Approve" and "Reject" actions.
+*   **Approved:** Files that have been approved.
+*   **Rejected:** Files that have been rejected, with a "Feedback" column displaying the reason for rejection.
 
-Simply open [Lovable](https://lovable.dev/projects/4f75726e-8470-4a96-9c17-f04c35eed2c6) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+All files can be downloaded from this page.
