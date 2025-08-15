@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FileUp, Inbox } from "lucide-react";
+import { uploadFile } from "@/lib/api";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -66,18 +67,9 @@ const Dashboard = () => {
     formData.append("filename", filename);
 
     try {
-      const response = await fetch("https://data-research-team-1094890588015.us-central1.run.app/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("API upload failed");
-      }
-
+      await uploadFile(formData);
       // Handle successful upload
       alert("File uploaded successfully!");
-
     } catch (error) {
       console.error("API upload error:", error);
       alert("File upload failed.");

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { ThemeToggle } from "./ThemeToggle";
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
+
   return (
     <header className="sticky top-0 z-10 bg-card/80 backdrop-blur-sm border-b border-border/50 shadow-soft">
       <div className="max-w-7xl mx-auto px-6 py-3">
@@ -19,7 +23,17 @@ const Navbar = () => {
               </Link>
             </nav>
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-4">
+            <ThemeToggle />
+            {user && (
+              <>
+                <span className="text-sm text-muted-foreground">{user.email}</span>
+                <Button variant="ghost" size="sm" onClick={logout}>
+                  Logout
+                </Button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>

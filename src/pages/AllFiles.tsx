@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { getFiles, approveFile, rejectFile } from "@/lib/api";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Table,
   TableBody,
@@ -41,44 +43,32 @@ interface FileItem {
 }
 
 const AllFiles = () => {
+  const { userProfile } = useAuth();
   const [pendingFiles, setPendingFiles] = useState<FileItem[]>([]);
   const [approvedFiles, setApprovedFiles] = useState<FileItem[]>([]);
   const [rejectedFiles, setRejectedFiles] = useState<FileItem[]>([]);
+  const [filteredPendingFiles, setFilteredPendingFiles] = useState<FileItem[]>([]);
+  const [filteredApprovedFiles, setFilteredApprovedFiles] = useState<FileItem[]>([]);
+  const [filteredRejectedFiles, setFilteredRejectedFiles] = useState<FileItem[]>([]);
   const [loading, setLoading] = useState({ pending: true, approved: true, rejected: true });
   const [error, setError] = useState<{ pending: string | null, approved: string | null, rejected: string | null }>({ pending: null, approved: null, rejected: null });
   const [isRejecting, setIsRejecting] = useState(false);
+  const [projIdFilter, setProjIdFilter] = useState("");
+  const [uploaderFilter, setUploaderFilter] = useState("");
   const [currentFile, setCurrentFile] = useState<FileItem | null>(null);
   const [feedback, setFeedback] = useState("");
 
   useEffect(() => {
     const fetchAllFiles = async () => {
       try {
-        const [pendingRes, approvedRes, rejectedRes] = await Promise.all([
-          fetch("https://data-research-team-1094890588015.us-central1.run.app/files"),
-          fetch("https://data-research-team-1094890588015.us-central1.run.app/files?status_folder=approved"),
-          fetch("https://data-research-team-1094890588015.us-central1.run.app/files?status_folder=rejected")
+        const [pendingData, approvedData, rejectedData] = await Promise.all([
+          getFiles("pending"),
+          getFiles("approved"),
+          getFiles("rejected"),
         ]);
-
-        if (pendingRes.ok) {
-          const data = await pendingRes.json();
-          setPendingFiles(data.items || []);
-        } else {
-          setError(prev => ({ ...prev, pending: "Failed to fetch pending files" }));
-        }
-
-        if (approvedRes.ok) {
-          const data = await approvedRes.json();
-          setApprovedFiles(data.items || []);
-        } else {
-          setError(prev => ({ ...prev, approved: "Failed to fetch approved files" }));
-        }
-
-        if (rejectedRes.ok) {
-          const data = await rejectedRes.json();
-          setRejectedFiles(data.items || []);
-        } else {
-          setError(prev => ({ ...prev, rejected: "Failed to fetch rejected files" }));
-        }
+        setPendingFiles(pendingData.items || []);
+        setApprovedFiles(approvedData.items || []);
+        setRejectedFiles(rejectedData.items || []);
       } catch (err) {
         setError({ pending: "An error occurred", approved: "An error occurred", rejected: "An error occurred" });
       } finally {
@@ -86,17 +76,39 @@ const AllFiles = () => {
       }
     };
     fetchAllFiles();
+
+    const ws = new WebSocket(import.meta.env.VITE_API_URL.replace("https", "wss") + "/ws");
+    ws.onmessage = () => {
+      fetchAllFiles();
+    };
+
+    return () => {
+      ws.close();
+    };
   }, []);
+
+  useEffect(() => {
+    const filterFiles = () => {
+      const filterLogic = (file: FileItem) => {
+        return (
+          file.metadata.proj_id.toLowerCase().includes(projIdFilter.toLowerCase()) &&
+          file.metadata.uploader.toLowerCase().includes(uploaderFilter.toLowerCase())
+        );
+      };
+      setFilteredPendingFiles(pendingFiles.filter(filterLogic));
+      setFilteredApprovedFiles(approvedFiles.filter(filterLogic));
+      setFilteredRejectedFiles(rejectedFiles.filter(filterLogic));
+    };
+    filterFiles();
+  }, [projIdFilter, uploaderFilter, pendingFiles, approvedFiles, rejectedFiles]);
 
   const handleApprove = async (objectName: string) => {
     try {
-      const response = await fetch(`https://data-research-team-1094890588015.us-central1.run.app/approve?object_name=${objectName}&approver=jason`, { method: 'POST' });
-      if (response.ok) {
-        const approvedFile = pendingFiles.find(f => f.name === objectName);
-        if (approvedFile) {
-          setPendingFiles(prev => prev.filter(f => f.name !== objectName));
-          setApprovedFiles(prev => [...prev, { ...approvedFile, status: 'approved' }]);
-        }
+      await approveFile(objectName);
+      const approvedFile = pendingFiles.find(f => f.name === objectName);
+      if (approvedFile) {
+        setPendingFiles(prev => prev.filter(f => f.name !== objectName));
+        setApprovedFiles(prev => [...prev, { ...approvedFile, status: 'approved' }]);
       }
     } catch (err) { console.error(err); }
   };
@@ -104,13 +116,11 @@ const AllFiles = () => {
   const handleReject = async () => {
     if (!currentFile || !feedback) return;
     try {
-      const response = await fetch(`https://data-research-team-1094890588015.us-central1.run.app/reject?object_name=${currentFile.name}&rejector=jason&feedback=${encodeURIComponent(feedback)}`, { method: 'POST' });
-      if (response.ok) {
-        const rejectedFile = pendingFiles.find(f => f.name === currentFile.name);
-        if (rejectedFile) {
-          setPendingFiles(prev => prev.filter(f => f.name !== currentFile.name));
-          setRejectedFiles(prev => [...prev, { ...rejectedFile, status: 'rejected', metadata: {...rejectedFile.metadata, feedback} }]);
-        }
+      await rejectFile(currentFile.name, feedback);
+      const rejectedFile = pendingFiles.find(f => f.name === currentFile.name);
+      if (rejectedFile) {
+        setPendingFiles(prev => prev.filter(f => f.name !== currentFile.name));
+        setRejectedFiles(prev => [...prev, { ...rejectedFile, status: 'rejected', metadata: {...rejectedFile.metadata, feedback} }]);
       }
     } catch (err) { console.error(err); }
     finally {
@@ -137,7 +147,7 @@ const AllFiles = () => {
       header: 'Actions',
       accessor: (file: FileItem) => (
         <TableCell className="text-right space-x-2">
-          {type === 'pending' && (
+          {type === 'pending' && userProfile?.role === 'admin' && (
             <>
               <Button variant="outline" size="icon" onClick={() => handleApprove(file.name)} title="Approve">
                 <CheckCircle className="h-4 w-4" />
@@ -191,6 +201,20 @@ const AllFiles = () => {
   return (
     <div className="max-w-7xl mx-auto px-6 py-8">
       <h1 className="text-2xl font-bold mb-8">All Uploaded Files</h1>
+      <div className="flex space-x-4 mb-4">
+        <Input
+          placeholder="Filter by Project ID"
+          value={projIdFilter}
+          onChange={(e) => setProjIdFilter(e.target.value)}
+          className="max-w-xs"
+        />
+        <Input
+          placeholder="Filter by Uploader"
+          value={uploaderFilter}
+          onChange={(e) => setUploaderFilter(e.target.value)}
+          className="max-w-xs"
+        />
+      </div>
       <Tabs defaultValue="pending">
         <TabsList className="mb-4">
           <TabsTrigger value="pending">Pending</TabsTrigger>
@@ -198,13 +222,13 @@ const AllFiles = () => {
           <TabsTrigger value="rejected">Rejected</TabsTrigger>
         </TabsList>
         <TabsContent value="pending">
-          {renderTable(pendingFiles, loading.pending, error.pending, 'pending')}
+          {renderTable(filteredPendingFiles, loading.pending, error.pending, 'pending')}
         </TabsContent>
         <TabsContent value="approved">
-          {renderTable(approvedFiles, loading.approved, error.approved, 'approved')}
+          {renderTable(filteredApprovedFiles, loading.approved, error.approved, 'approved')}
         </TabsContent>
         <TabsContent value="rejected">
-          {renderTable(rejectedFiles, loading.rejected, error.rejected, 'rejected')}
+          {renderTable(filteredRejectedFiles, loading.rejected, error.rejected, 'rejected')}
         </TabsContent>
       </Tabs>
       <AlertDialog open={isRejecting} onOpenChange={setIsRejecting}>
