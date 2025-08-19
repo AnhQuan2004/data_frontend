@@ -31,11 +31,12 @@ export const FileUpload = ({ onFileUpload }: FileUploadProps) => {
       const values = lines[i].split(',').map(v => v.trim());
       if (values.length >= 5) {
         data.push({
-          proj_id: values[headers.indexOf('proj_id')] || values[0] || '',
-          question: values[headers.indexOf('question')] || values[1] || '',
-          output: values[headers.indexOf('output')] || values[2] || '',
-          updated: values[headers.indexOf('updated')] || values[3] || '',
-          source: values[headers.indexOf('source')] || values[4] || '',
+          project_id: values[headers.indexOf('project_id')] || values[0] || '',
+          questions_main: values[headers.indexOf('questions_main')] || values[1] || '',
+          questions_details: values[headers.indexOf('questions_details')] || values[2] || '',
+          result: values[headers.indexOf('result')] || values[3] || '',
+          detail: values[headers.indexOf('detail')] || values[4] || '',
+          source: values[headers.indexOf('source')] || values[5] || '',
         });
       }
     }
@@ -48,22 +49,18 @@ export const FileUpload = ({ onFileUpload }: FileUploadProps) => {
     
     data.forEach(row => {
       // Check for empty cells
-      if (!row.proj_id || !row.question || !row.output || !row.updated || !row.source) {
+      // Check for empty cells
+      if (!row.project_id || !row.questions_main || !row.questions_details || !row.result || !row.source) {
         issues++;
       }
       
       // Check for questions that are too short or only contain "?"
-      if (row.question.length < 10 || row.question.trim() === '?') {
+      if (row.questions_main.length < 10 || row.questions_main.trim() === '?') {
         issues++;
       }
       
-      // Check for missing output or contains "?" keyword
-      if (!row.output || row.output.includes('?')) {
-        issues++;
-      }
-      
-      // Check date format (basic check)
-      if (row.updated && !isValidDate(row.updated)) {
+      // Check for result value
+      if (!['0', '1'].includes(row.result)) {
         issues++;
       }
     });
@@ -71,10 +68,6 @@ export const FileUpload = ({ onFileUpload }: FileUploadProps) => {
     return issues;
   };
 
-  const isValidDate = (dateString: string): boolean => {
-    const date = new Date(dateString);
-    return !isNaN(date.getTime());
-  };
 
   const handleFileSelect = async (file: File) => {
     if (!file.name.toLowerCase().endsWith('.csv')) {
@@ -194,16 +187,25 @@ export const FileUpload = ({ onFileUpload }: FileUploadProps) => {
                 Drag and drop your CSV file here
               </div>
               <div className="text-xs text-muted-foreground">
-                Supports proj_id, question, output, updated, source columns
+                Supports project_id, questions_main, questions_details, result, detail, source columns
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => fileInputRef.current?.click()}
-                className="mt-2"
-              >
-                Browse Files
-              </Button>
+              <div className="flex justify-center gap-2 mt-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  Browse Files
+                </Button>
+                <a href="/output_template.csv" download>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                  >
+                    Download Sample
+                  </Button>
+                </a>
+              </div>
             </div>
           )}
         </div>

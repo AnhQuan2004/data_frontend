@@ -24,7 +24,7 @@ import {
   AlertTriangle,
   ExternalLink
 } from "lucide-react";
-import type { UploadedFile, CSVData } from "@/pages/Index";
+import type { UploadedFile, CSVData } from "@/pages/Dashboard";
 
 interface DataPreviewProps {
   file: UploadedFile;
@@ -35,7 +35,7 @@ type SortDirection = 'asc' | 'desc' | null;
 
 export const DataPreview = ({ file }: DataPreviewProps) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [projIdFilter, setProjIdFilter] = useState<string>("");
+  const [projectIdFilter, setProjectIdFilter] = useState<string>("");
   const [sourceFilter, setSourceFilter] = useState<string>("");
   const [sortField, setSortField] = useState<SortField | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
@@ -44,7 +44,7 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
 
   // Get unique values for filters
   const uniqueProjIds = useMemo(() => {
-    return [...new Set(file.data.map(row => row.proj_id).filter(Boolean))];
+    return [...new Set(file.data.map(row => row.project_id).filter(Boolean))];
   }, [file.data]);
 
   const uniqueSources = useMemo(() => {
@@ -58,14 +58,14 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
     // Text search in question and output
     if (searchTerm) {
       filtered = filtered.filter(row => 
-        row.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        row.output.toLowerCase().includes(searchTerm.toLowerCase())
+        row.questions_main.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        row.questions_details.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
 
     // Project ID filter
-    if (projIdFilter) {
-      filtered = filtered.filter(row => row.proj_id === projIdFilter);
+    if (projectIdFilter) {
+      filtered = filtered.filter(row => row.project_id === projectIdFilter);
     }
 
     // Source filter
@@ -80,11 +80,6 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
         const bVal = b[sortField];
         
         // Special handling for dates
-        if (sortField === 'updated') {
-          const aDate = new Date(aVal).getTime();
-          const bDate = new Date(bVal).getTime();
-          return sortDirection === 'asc' ? aDate - bDate : bDate - aDate;
-        }
         
         // String comparison
         const result = aVal.localeCompare(bVal);
@@ -93,7 +88,7 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
     }
 
     return filtered;
-  }, [file.data, searchTerm, projIdFilter, sourceFilter, sortField, sortDirection]);
+  }, [file.data, searchTerm, projectIdFilter, sourceFilter, sortField, sortDirection]);
 
   // Pagination
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -140,33 +135,16 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
   };
 
   const hasDataQualityIssue = (row: CSVData) => {
-    return !row.proj_id || !row.question || !row.output || !row.updated || !row.source ||
-           row.question.length < 10 || row.question.trim() === '?' ||
-           row.output.includes('?') || !isValidDate(row.updated);
+    return !row.project_id || !row.questions_main || !row.questions_details || !row.result || !row.source ||
+           row.questions_main.length < 10 || row.questions_main.trim() === '?' ||
+           !['0', '1'].includes(row.result);
   };
 
-  const isValidDate = (dateString: string): boolean => {
-    const date = new Date(dateString);
-    return !isNaN(date.getTime());
-  };
 
-  const formatDate = (dateString: string): string => {
-    try {
-      return new Date(dateString).toLocaleDateString('en-US', {
-        month: '2-digit',
-        day: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-    } catch {
-      return dateString;
-    }
-  };
 
   const clearFilters = () => {
     setSearchTerm("");
-    setProjIdFilter("");
+    setProjectIdFilter("");
     setSourceFilter("");
     setSortField(null);
     setSortDirection(null);
@@ -205,8 +183,8 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
             />
           </div>
           
-          <Select value={projIdFilter} onValueChange={(value) => {
-            setProjIdFilter(value === "all" ? "" : value);
+          <Select value={projectIdFilter} onValueChange={(value) => {
+            setProjectIdFilter(value === "all" ? "" : value);
             setCurrentPage(1);
           }}>
             <SelectTrigger>
@@ -255,50 +233,61 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={() => handleSort('proj_id')}
+                      onClick={() => handleSort('project_id')}
                       className="h-8 p-0 font-medium hover:bg-transparent"
                     >
                       Project ID
-                      {getSortIcon('proj_id')}
+                      {getSortIcon('project_id')}
                     </Button>
                   </TableHead>
                   <TableHead className="min-w-[200px]">
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={() => handleSort('question')}
+                      onClick={() => handleSort('questions_main')}
                       className="h-8 p-0 font-medium hover:bg-transparent"
                     >
-                      Question
-                      {getSortIcon('question')}
+                      Questions Main
+                      {getSortIcon('questions_main')}
                     </Button>
                   </TableHead>
                   <TableHead className="min-w-[200px]">
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      onClick={() => handleSort('output')}
+                      onClick={() => handleSort('questions_details')}
                       className="h-8 p-0 font-medium hover:bg-transparent"
                     >
-                      Output
-                      {getSortIcon('output')}
+                      Questions Details
+                      {getSortIcon('questions_details')}
                     </Button>
                   </TableHead>
                   <TableHead className="w-[140px]">
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
-                      onClick={() => handleSort('updated')}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleSort('result')}
                       className="h-8 p-0 font-medium hover:bg-transparent"
                     >
-                      Updated
-                      {getSortIcon('updated')}
+                      Result
+                      {getSortIcon('result')}
                     </Button>
                   </TableHead>
                   <TableHead className="w-[120px]">
-                    <Button 
-                      variant="ghost" 
-                      size="sm" 
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleSort('detail')}
+                      className="h-8 p-0 font-medium hover:bg-transparent"
+                    >
+                      Detail
+                      {getSortIcon('detail')}
+                    </Button>
+                  </TableHead>
+                  <TableHead className="w-[120px]">
+                    <Button
+                      variant="ghost"
+                      size="sm"
                       onClick={() => handleSort('source')}
                       className="h-8 p-0 font-medium hover:bg-transparent"
                     >
@@ -320,23 +309,23 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
                     >
                       <TableCell className="align-top">
                         <div className="flex items-center gap-2">
-                          {getProjIdBadge(row.proj_id)}
+                          {getProjIdBadge(row.project_id)}
                           {hasIssue && <AlertTriangle className="w-3 h-3 text-destructive" />}
                         </div>
                       </TableCell>
                       <TableCell className="align-top">
                         <div className="max-w-xs">
                           <div className={`text-sm line-clamp-3 ${
-                            row.question.length < 10 || row.question.trim() === '?' 
-                              ? 'text-destructive' 
+                            row.questions_main.length < 10 || row.questions_main.trim() === '?'
+                              ? 'text-destructive'
                               : ''
                           }`}>
-                            {row.question || <span className="text-muted-foreground italic">Empty</span>}
+                            {row.questions_main || <span className="text-muted-foreground italic">Empty</span>}
                           </div>
-                          {row.question.length > 100 && (
-                            <Button 
-                              variant="ghost" 
-                              size="sm" 
+                          {row.questions_main.length > 100 && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
                               className="h-6 px-2 mt-1 text-xs"
                               title="View full question"
                             >
@@ -347,27 +336,21 @@ export const DataPreview = ({ file }: DataPreviewProps) => {
                       </TableCell>
                       <TableCell className="align-top">
                         <div className="max-w-xs">
-                          <div className={`text-sm line-clamp-3 ${
-                            !row.output || row.output.includes('?') 
-                              ? 'text-warning' 
-                              : ''
-                          }`}>
-                            {row.output || <span className="text-muted-foreground italic">Empty</span>}
+                          <div className={`text-sm line-clamp-3`}>
+                            {row.questions_details || <span className="text-muted-foreground italic">Empty</span>}
                           </div>
-                          {row.output && row.output.includes('?') && (
-                            <Badge variant="outline" className="text-xs mt-1 text-warning border-warning">
-                              Needs Review
-                            </Badge>
-                          )}
                         </div>
                       </TableCell>
                       <TableCell className="align-top">
                         <div className={`text-sm ${
-                          !isValidDate(row.updated) ? 'text-destructive' : ''
+                          !['0', '1'].includes(row.result) ? 'text-destructive' : ''
                         }`}>
-                          {row.updated ? formatDate(row.updated) : 
-                            <span className="text-muted-foreground italic">Empty</span>
-                          }
+                          {row.result || <span className="text-muted-foreground italic">Empty</span>}
+                        </div>
+                      </TableCell>
+                      <TableCell className="align-top">
+                        <div className={`text-sm`}>
+                          {row.detail || <span className="text-muted-foreground italic">Empty</span>}
                         </div>
                       </TableCell>
                       <TableCell className="align-top">

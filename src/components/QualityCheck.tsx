@@ -10,14 +10,14 @@ import {
   Calendar,
   MessageSquare
 } from "lucide-react";
-import type { UploadedFile, CSVData } from "@/pages/Index";
+import type { UploadedFile, CSVData } from "@/pages/Dashboard";
 
 interface QualityCheckProps {
   file: UploadedFile;
 }
 
 interface QualityIssue {
-  type: 'empty_cell' | 'invalid_date' | 'short_question' | 'missing_output' | 'questionmark_output';
+  type: 'empty_cell' | 'short_question' | 'invalid_result';
   message: string;
   rowIndex: number;
   column: string;
@@ -40,53 +40,33 @@ export const QualityCheck = ({ file }: QualityCheckProps) => {
         }
       });
       
-      // Check for invalid dates
-      if (row.updated && !isValidDate(row.updated)) {
-        issues.push({
-          type: 'invalid_date',
-          message: `Invalid date format: ${row.updated}`,
-          rowIndex: index + 2,
-          column: 'updated'
-        });
-      }
-      
       // Check for short questions
-      if (row.question && row.question.length < 10) {
+      if (row.questions_main && row.questions_main.length < 10) {
         issues.push({
           type: 'short_question',
-          message: `Question too short (${row.question.length} chars)`,
+          message: `Question too short (${row.questions_main.length} chars)`,
           rowIndex: index + 2,
-          column: 'question'
+          column: 'questions_main'
         });
       }
       
       // Check for questions that are only "?"
-      if (row.question && row.question.trim() === '?') {
+      if (row.questions_main && row.questions_main.trim() === '?') {
         issues.push({
           type: 'short_question',
           message: 'Question is only "?"',
           rowIndex: index + 2,
-          column: 'question'
+          column: 'questions_main'
         });
       }
       
-      // Check for missing output
-      if (!row.output || row.output.trim() === '') {
+      // Check for invalid result
+      if (row.result && !['0', '1'].includes(row.result)) {
         issues.push({
-          type: 'missing_output',
-          message: 'Missing output data',
+          type: 'invalid_result',
+          message: `Invalid result value: ${row.result}`,
           rowIndex: index + 2,
-          column: 'output'
-        });
-      }
-      
-      // Check for output containing "?" keyword
-      if (row.output && row.output.includes('?')) {
-        issues.push({
-          type: 'questionmark_output',
-          message: 'Output contains "?" - may need review',
-          rowIndex: index + 2,
-          column: 'output'
+          column: 'result'
         });
       }
     });
@@ -94,10 +74,6 @@ export const QualityCheck = ({ file }: QualityCheckProps) => {
     return issues;
   };
 
-  const isValidDate = (dateString: string): boolean => {
-    const date = new Date(dateString);
-    return !isNaN(date.getTime());
-  };
 
   const issues = analyzeQuality(file.data);
   const totalRows = file.data.length;
@@ -108,14 +84,10 @@ export const QualityCheck = ({ file }: QualityCheckProps) => {
     switch (type) {
       case 'empty_cell':
         return <XCircle className="w-4 h-4 text-destructive" />;
-      case 'invalid_date':
-        return <Calendar className="w-4 h-4 text-warning" />;
       case 'short_question':
         return <MessageSquare className="w-4 h-4 text-warning" />;
-      case 'missing_output':
-        return <AlertTriangle className="w-4 h-4 text-destructive" />;
-      case 'questionmark_output':
-        return <AlertCircle className="w-4 h-4 text-warning" />;
+      case 'invalid_result':
+        return <AlertCircle className="w-4 h-4 text-destructive" />;
       default:
         return <AlertTriangle className="w-4 h-4" />;
     }
@@ -179,14 +151,6 @@ export const QualityCheck = ({ file }: QualityCheckProps) => {
                 </div>
               )}
               
-              {getIssueTypeCount('invalid_date') > 0 && (
-                <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="w-4 h-4 text-warning" />
-                  <span className="text-muted-foreground">Invalid dates:</span>
-                  <span className="font-medium">{getIssueTypeCount('invalid_date')}</span>
-                </div>
-              )}
-              
               {getIssueTypeCount('short_question') > 0 && (
                 <div className="flex items-center gap-2 text-sm">
                   <MessageSquare className="w-4 h-4 text-warning" />
@@ -195,19 +159,11 @@ export const QualityCheck = ({ file }: QualityCheckProps) => {
                 </div>
               )}
               
-              {getIssueTypeCount('missing_output') > 0 && (
+              {getIssueTypeCount('invalid_result') > 0 && (
                 <div className="flex items-center gap-2 text-sm">
-                  <AlertTriangle className="w-4 h-4 text-destructive" />
-                  <span className="text-muted-foreground">Missing output:</span>
-                  <span className="font-medium">{getIssueTypeCount('missing_output')}</span>
-                </div>
-              )}
-              
-              {getIssueTypeCount('questionmark_output') > 0 && (
-                <div className="flex items-center gap-2 text-sm">
-                  <AlertCircle className="w-4 h-4 text-warning" />
-                  <span className="text-muted-foreground">Output with "?":</span>
-                  <span className="font-medium">{getIssueTypeCount('questionmark_output')}</span>
+                  <AlertCircle className="w-4 h-4 text-destructive" />
+                  <span className="text-muted-foreground">Invalid results:</span>
+                  <span className="font-medium">{getIssueTypeCount('invalid_result')}</span>
                 </div>
               )}
             </div>

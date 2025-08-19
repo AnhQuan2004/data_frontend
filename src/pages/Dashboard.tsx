@@ -11,10 +11,11 @@ import { FileManager } from "@/components/FileManager";
 import { QualityCheck } from "@/components/QualityCheck";
 
 export interface CSVData {
-  proj_id: string;
-  question: string;
-  output: string;
-  updated: string;
+  project_id: string;
+  questions_main: string;
+  questions_details: string;
+  result: string;
+  detail: string;
   source: string;
 }
 
@@ -35,7 +36,7 @@ export interface UploadedFile {
 const Dashboard = () => {
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([]);
   const [selectedFile, setSelectedFile] = useState<UploadedFile | null>(null);
-  const [projId, setProjId] = useState("solana");
+  const [projectId, setProjectId] = useState("solana");
   const [uploader, setUploader] = useState("jason");
   const [filename, setFilename] = useState("");
 
@@ -62,7 +63,7 @@ const Dashboard = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile.rawFile);
-    formData.append("proj_id", projId);
+    formData.append("project_id", projectId);
     formData.append("uploader", uploader);
     formData.append("filename", filename);
 
@@ -98,13 +99,13 @@ const Dashboard = () => {
                 <QualityCheck file={selectedFile} />
                 <DataPreview file={selectedFile} />
                 <div className="grid w-full max-w-sm items-center gap-1.5">
-                  <Label htmlFor="projId">Project ID</Label>
+                  <Label htmlFor="projectId">Project ID</Label>
                   <Input
                     type="text"
-                    id="projId"
+                    id="projectId"
                     placeholder="solana"
-                    value={projId}
-                    onChange={(e) => setProjId(e.target.value)}
+                    value={projectId}
+                    onChange={(e) => setProjectId(e.target.value)}
                   />
                 </div>
                 <div className="grid w-full max-w-sm items-center gap-1.5">
@@ -146,7 +147,7 @@ const Dashboard = () => {
                     Upload your first CSV file to begin analyzing, transforming, and collaborating on your data.
                   </p>
                   <div className="text-xs text-muted-foreground/80">
-                    Supported columns: proj_id, question, output, updated, source
+                    Supported columns: project_id, questions_main, questions_details, result, detail, source
                   </div>
                 </div>
               </div>
