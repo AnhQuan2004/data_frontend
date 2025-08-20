@@ -24,11 +24,11 @@ export const FileUpload = ({ onFileUpload }: FileUploadProps) => {
     const lines = content.split('\n').filter(line => line.trim());
     if (lines.length < 2) return [];
     
-    const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+    const headers = lines[0].split(';').map(h => h.trim().toLowerCase());
     const data: CSVData[] = [];
     
     for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',').map(v => v.trim());
+      const values = lines[i].split(';').map(v => v.trim());
       if (values.length >= 5) {
         data.push({
           project_id: values[headers.indexOf('project_id')] || values[0] || '',

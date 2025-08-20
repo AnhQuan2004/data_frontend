@@ -45,6 +45,9 @@ const Dashboard = () => {
     setUploadedFiles(prev => [...prev, newFile]);
     setSelectedFile(newFile);
     setFilename(rawFile.name);
+    if (file.data.length > 0) {
+      setProjectId(file.data[0].project_id);
+    }
   };
 
   const handleFileSelect = (file: UploadedFile) => {
@@ -63,7 +66,7 @@ const Dashboard = () => {
 
     const formData = new FormData();
     formData.append("file", selectedFile.rawFile);
-    formData.append("project_id", projectId);
+    formData.append("proj_id", projectId);
     formData.append("uploader", uploader);
     formData.append("filename", filename);
 
