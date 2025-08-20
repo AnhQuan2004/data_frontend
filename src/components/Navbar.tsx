@@ -12,7 +12,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link to="/" className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              DataFlow Analytics
+              GFI WORKING SPACE
             </Link>
             <nav className="flex items-center gap-4">
               <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
