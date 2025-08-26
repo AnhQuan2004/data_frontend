@@ -34,9 +34,9 @@ const App = () => (
                     <>
                       <Navbar />
                       <Routes>
-                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/" element={<QuestionForm />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/all-files" element={<AllFiles />} />
-                        <Route path="/question-form" element={<QuestionForm />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>
