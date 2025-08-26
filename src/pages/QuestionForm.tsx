@@ -231,7 +231,7 @@ const QuestionForm = () => {
               <Button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Previous</Button>
               <Button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next</Button>
             </div>
-            <Button onClick={handleTestFill}>Test</Button>
+            <Button onClick={handleTestFill} disabled>Test</Button>
             <Button onClick={handleSubmit} disabled={!isFormValid}>Submit</Button>
           </div>
         </CardContent>
