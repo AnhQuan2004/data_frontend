@@ -12,7 +12,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <Link to="/" className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              GFI WORKING SPACE
+              DataFlow Analytics
             </Link>
             <nav className="flex items-center gap-4">
               <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
@@ -20,6 +20,9 @@ const Navbar = () => {
               </Link>
               <Link to="/all-files" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 All Files
+              </Link>
+              <Link to="/question-form" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                Question Form
               </Link>
             </nav>
           </div>

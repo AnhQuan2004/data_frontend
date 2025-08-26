@@ -10,6 +10,7 @@ import AllFiles from "./pages/AllFiles";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import QuestionForm from "./pages/QuestionForm";
 import { AuthProvider } from "./hooks/useAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -35,6 +36,7 @@ const App = () => (
                       <Routes>
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/all-files" element={<AllFiles />} />
+                        <Route path="/question-form" element={<QuestionForm />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>

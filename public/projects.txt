@@ -1,0 +1,30 @@
+BTC – Bitcoin
+ETH – Ethereum
+XRP – XRP
+BNB – BNB
+SOL – Solana
+ADA – Cardano
+TRX – TRON
+DOGE – Dogecoin
+LINK – Chainlink
+HYPE – Hyperliquid
+XLM – Stellar
+SUI – Sui
+BCH – Bitcoin Cash
+HBAR – Hedera
+AVAX – Avalanche
+LEO – LEO Token
+LTC – Litecoin
+TON – Toncoin
+SHIB – Shiba Inu
+WBT – WhiteBIT Coin
+UNI – Uniswap
+DOT – Polkadot
+XMR – Monero
+BGB – Bitget Token
+CRO – Cronos
+PEPE – Pepe
+ENA – Ethena
+AAVE – Aave
+MNT – Mantle
+TAO – Bittensor

@@ -1,0 +1,79 @@
+Tốc độ tăng trưởng kép hàng năm (CAGR) của lĩnh vực dự án hoạt động có được dự báo > 20% không?
+Tổng thị trường có thể tiếp cận (TAM) của ngách dự án có lớn hơn $10 tỷ USD không?
+Dự án có đang giải quyết một vấn đề cốt lõi & lâu dài (Kg chạy theo "trend" nhất thời của thị trường) không ?
+Giải pháp của dự án có mang lại một lợi ích vượt trội ít nhất 5-10 lần (về tốc độ, chi phí, hoặc sự tiện lợi) so với giải pháp hiện có không?
+Dự án có nằm trong nhóm lĩnh vực được dự báo sẽ tăng trưởng mạnh trong 6-18 tháng tới không?
+Sản phẩm đã mainet?
+Sản phẩm có đang trong giai đoạn phát triển không?
+Sản phẩm có đang trong giai đoạn tăng trưởng ổn định không?
+Sản phẩm do team tự phát triển chứ không phải fork từ các dự án khác ?
+Sản phẩm có phải là một đột phá về công nghệ mới hoặc mô hình mới hoặc có bản quyền riêng ?
+Sản phẩm đã được audit ?
+Sản phẩm đã được audit bởi 2 đơn vị trở lên ?
+Sản phẩm có được audit bởi 2 đơn vị trở lên, trong đó có ít nhất 1 đơn vị Tier-1 (Trail of Bits, OpenZeppelin, Quantstamp, CertiK) không?
+Sản phẩm không có lỗi nghiêm trọng hoăc các lỗi nghiêm trọng đã được sửa sau khi audit ?
+Số lượng Repos liên quan
+Số lượng pull request lớn (L/XL) >10 trong 6 tháng
+Sản phẩm có Github công khai ?
+Số lượng trung bình số người đóng góp trên Github hàng tháng? (1-5: 1pts, 6-10: 2pts, +10: 3pts)
+Số lượng commit trên github 2 tháng gần nhất (10-50: 1pts, 51-100: 2pts, +100: 3pts)
+Trên 50% đội ngũ lãnh đạo có công khai thông tin không?
+Chuyên môn của 50% đội ngũ lãnh đạo có trực tiếp liên quan đến lĩnh vực dự án đang xây dựng không ?
+Trên 50% đội ngũ lãnh đạo có kinh nghiệm >2 năm trong ngành crypto không?
+Dự án có it nhất một thành viên lãnh đạo có kinh nghiệm về phát triển kinh doanh, marketing hoặc gọi vốn thành công trước đây không?
+Đội ngũ sáng lập đã từng xây dựng một sản phẩm công nghệ (crypto hoặc không) và ra mắt thành công đến tay người dùng chưa?
+Đội ngũ có duy trì hoạt động phát triển (GitHub, marketing, AMA) một cách đều đặn ngay cả khi thị trường downtrend không?
+Đội ngũ sáng lập chưa từng dính vào các cáo buộc lừa đảo, "rug pull" hoặc các bê bối lớn nào đúng không?
+Đội ngũ sáng lập đã từng được các quỹ đầu tư (VCs) uy tín rót vốn hoặc các nhà phát triển nổi tiếng khác trong ngành công nhận và nhắc đến một cách tích cực không?
+Có founder nào có lượng theo dõi trên 5k trên X không?
+Dự án có lượng người follow trên X > 50,000?
+Dự án có thành viên trên Telegram > 50,000?
+Dự án có thành viên trên Discord > 20,000?
+Dự án có cộng đồng bản địa chính thức trên 3 quốc gia không?
+Dự án có các chiến lược thu hút người dùng mới bền vững không? (Ambassador, Retroactive, KOL, Partner,...)
+Tỷ lệ tương tác (engagement rate) trung bình trên các bài đăng gần nhất trên X có > 2% số thành viên không?
+Dự án có tổ chức các buổi AMA, Workshop hoặc sự kiện cộng đồng định kỳ (ít nhất 1 lần/tháng) không?
+Dự án có được > 10 smart follower trên X không?
+Dự án chưa từng bị tố cáo lừa đảo (scam) hoặc dính vào các scandal lớn gây ảnh hưởng nghiêm trọng đến danh tiếng?
+Sentiment từ cộng đồng chủ yếu là tích cực trong 1 tháng gần nhất ?
+Dự án có công khai danh sách nhà đầu tư (backers) và được xác thực bởi các nguồn tin cậy không?
+Dự án có được đầu tư bởi các nhà đầu tư cá nhân (angel investors) là founder của các dự án thành công khác hoặc có tầm ảnh hưởng lớn trong ngành không?
+Dự án có được đầu tư bởi các quỹ Tier-3 chuyên về crypto không?
+Dự án có được đầu tư bởi các quỹ Tier-2 chuyên về crypto (ví dụ: Polychain, Dragonfly, Framework, Multicoin) không?
+Dự án có được đầu tư bởi ít nhất một quỹ Tier-1 (ví dụ: a16z, Paradigm, Sequoia, Binance Labs, Electric Capital) không?
+Quỹ đầu tư Tier-1/Tier-2 có đóng vai trò là nhà đầu tư dẫn dắt (lead investor) trong vòng gọi vốn không?
+Backer có các nhà tạo lập thị trường (MM) lớn (Jump Trading, Winter mute) để đảm bảo thanh khoản khi niêm yết không?
+Dự án có quan hệ đối tác chiến lược với các dự án/hệ sinh thái top 50 CMC để có được các giá trị tăng trưởng như tích hợp sản phẩm hoặc chia sẻ người dùng không?
+Dự án có cung cấp giải pháp/ sản phẩm/ nền tảng cho các công ty Web2 có lượng người dùng lớn hơn 10 triệu không ?
+Dự án có cung cấp giải pháp/ sản phẩm/ nền tảng cho các tổ chức chính phủ không ?
+Có mô tả rõ ràng và công khai về tỷ lệ phân bổ cho các nhóm chính trong tài liệu công khai không (Team sáng lập, nhà đầu tư, cộng đồng, quỹ phát triển,...) ?
+Dự án có mô tả rõ ràng và công khai về thời gian phân bổ tokenomics trong tài liệu không ?
+Tổng thời gian phân bổ cho toàn bộ token có bằng hoặc nhiều hơn 4 năm không ?
+Tổng thời gian vesting của đội ngũ có lớn hơn hoặc bằng 4 năm với thời gian cliff tối thiểu 1 năm không?
+Tổng thời gian vesting của nhà đầu tư có lớn hơn hoặc bằng 2 năm với thời gian cliff tối thiểu 6 tháng không?
+Tổng cung tối đa của token (Max Supply) có được xác định rõ và cố định không?
+Tỷ lệ lạm phát có thấp hơn 5% mỗi năm không (Cho dự án có nguồn cung tăng) ?
+Có cơ chế kiểm soát lạm phát không (halving, đốt coin, giảm tỷ lệ phát hành khi mạng lưới trưởng thành) ?
+Token có phải là phương tiện bắt buộc để sử dụng cho tối thiểu một sản phẩm/ dịch vụ của dự án không ( Thanh toán, Quản trị/Bỏ phiếu, quyền truy cập, giảm giá, ...) ?
+Token có phải là phương tiện bắt buộc để sử dụng cho nhiều hơn hoặc bằng 3 sản phẩm/ dịch vụ của dự án không ?
+Dự án có cơ chế khuyến khích giảm lưu thông token trên thị trường không ? (Khóa, stake dài hạn)
+Dự án có cơ chế khuyến khích thúc đẩy việc đóng góp của cộng đồng không ? (cung cấp thanh khoản, tham gia quản trị)
+Doanh thu từ giao thức có được dùng một phần để mua lại token trên thị trường (buyback) không?
+Có cơ chế chia sẻ phần thưởng từ doanh thu dự án cho người nắm giữ hoặc stake token không ?
+Có hơn 30% doanh thu sẽ dùng cho mục tiêu gia tăng giá trị cho token không ? (Quỹ thưởng, buy back & burn)
+Dự án có cơ chế đo lường cụ thể phần khuyến khích dựa trên đóng góp không?
+Có cơ chế phạt (ví dụ: slashing) cho các hành vi độc hại hoặc gây tổn hại cho giao thức không?
+Thiết kế tokenomics có cho phép điều chỉnh các thông số (ví dụ: tỷ lệ phần thưởng, phí) để thích ứng với điều kiện thị trường thay đổi trong tương lai không?
+Tỷ lệ mở khóa ở TGE cho early participants có <5% tổng cung không?
+Thời gian để 50% token được phát hành ban đầu có lớn hơn 2 năm không?
+Lượng token phát hành hàng tháng có nhỏ hơn 50% khối lượng giao dịch trung bình hàng ngày (của 30 ngày gần nhất) không?
+Lịch trình trả token (vesting) cho đội ngũ và nhà đầu tư có được thiết kế để trả dần theo từng đợt nhỏ, thay vì mở khóa một lượng lớn tại một thời điểm không? (Linear)
+Giá token hiện tại có cao hơn giá của các vòng gọi vốn sớm không ?
+Giá token hiện tại có cao hơn giá khi TGE không ?
+Tỷ lệ max drawndown trong 1 năm cao hay thấp (<80%: 1pts, <50%: 2pts, <20%: 3pts)
+Số lượng CEX lising token là bao nhiêu? (1 CEX: 1 pts, +3 CEX: 2pts)
+Token đã được niêm yết lên các sàn CEX top đầu (Binance, Coinbase)
+Volume giao dịch trung bình token trong 24h ở mức nào? (<$10M: 1pts,  $10M-$50M: 2pts,  $50M-$100M: 3pts,  $100M-$300M: 4pts,  >$300M: 5pts)
+Số lượng ví holder trong 1 tháng gần nhất (>5%: 1pts, >15%: 2pts, >30%: 3pts, >50%:4pts)
+Số lượng ví holder trong 1 tháng gần nhất  có ví cá mập (Tài sản trên 500k usd) mua và nắm giữ token dự án không ?
+Tốc độ tăng trưởng người dùng hoạt động (>5%: 1pts, >10%: 2pts, >20%: 3pts)
