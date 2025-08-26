@@ -16,13 +16,13 @@ const Navbar = () => {
             </Link>
             <nav className="flex items-center gap-4">
               <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-                Dashboard
+                Question Form
               </Link>
               <Link to="/all-files" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 All Files
               </Link>
-              <Link to="/question-form" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-                Question Form
+              <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                Dashboard
               </Link>
             </nav>
           </div>
