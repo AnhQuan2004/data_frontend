@@ -1,6 +1,6 @@
-# GFI  Analytics Frontend
+# DataFlow Analytics Frontend
 
-This is the frontend application for the GFI Analytics platform, a tool for uploading, managing, and reviewing data files.
+This is the frontend application for the DataFlow Analytics platform, a tool for uploading, managing, and reviewing data files.
 
 ![Screenshot of the All Files page](public/image.png)
 

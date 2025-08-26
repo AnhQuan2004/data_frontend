@@ -15,13 +15,13 @@ const Navbar = () => {
               GFI WORKING SPACE
             </Link>
             <nav className="flex items-center gap-4">
-              <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Dashboard
               </Link>
               <Link to="/all-files" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 All Files
               </Link>
-              <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              <Link to="/question-form" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Question Form
               </Link>
             </nav>

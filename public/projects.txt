@@ -4,7 +4,6 @@ chainlink
 avalanche-2
 mantle
 sui
-avalanche-2
 bitcoin
 solana
 hedera-hashgraph
