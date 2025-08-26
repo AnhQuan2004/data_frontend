@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,6 +14,14 @@ const QuestionForm = () => {
   const [answers, setAnswers] = useState<Record<string, { result: string; detail: string; source: string; source_entity: string }>>({});
   const [currentPage, setCurrentPage] = useState(1);
   const questionsPerPage = 10;
+
+  const isFormValid = useMemo(() => {
+    if (questions.length === 0) return false;
+    return questions.every(q => {
+      const answer = answers[q.id];
+      return answer && answer.result && answer.detail && answer.source && answer.source_entity;
+    });
+  }, [answers, questions]);
 
   useEffect(() => {
     fetch('/projects.txt')
@@ -40,11 +48,21 @@ const QuestionForm = () => {
   }, []);
 
   useEffect(() => {
-    const draft = localStorage.getItem('questionFormDraft');
-    if (draft) {
-      setAnswers(JSON.parse(draft));
+    const draftAnswers = localStorage.getItem('questionFormDraft');
+    if (draftAnswers) {
+      setAnswers(JSON.parse(draftAnswers));
+    }
+    const draftProject = localStorage.getItem('questionFormProject');
+    if (draftProject) {
+      setSelectedProject(draftProject);
     }
   }, []);
+
+  useEffect(() => {
+    if (selectedProject) {
+      localStorage.setItem('questionFormProject', selectedProject);
+    }
+  }, [selectedProject]);
 
   const handleAnswerChange = (questionId: string, field: string, value: string) => {
     const newAnswers = {
@@ -59,13 +77,8 @@ const QuestionForm = () => {
   };
 
   const handleSubmit = async () => {
-    const isFormValid = questions.every(q => {
-      const answer = answers[q.id];
-      return answer && answer.result && answer.detail && answer.source && answer.source_entity;
-    });
-
     if (!isFormValid) {
-      alert('Please fill out all fields for the current page before submitting.');
+      alert('Please fill out all fields for every question before submitting.');
       return;
     }
 
@@ -99,6 +112,7 @@ const QuestionForm = () => {
         console.log("API Response (Success):", responseData);
         alert('Form submitted successfully!');
         localStorage.removeItem('questionFormDraft');
+        localStorage.removeItem('questionFormProject');
         setAnswers({});
         setSelectedProject('');
       } else {
@@ -217,8 +231,8 @@ const QuestionForm = () => {
               <Button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Previous</Button>
               <Button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next</Button>
             </div>
-            <Button onClick={handleTestFill} disabled>Test</Button>
-            <Button onClick={handleSubmit}>Submit</Button>
+            <Button onClick={handleTestFill}>Test</Button>
+            <Button onClick={handleSubmit} disabled={!isFormValid}>Submit</Button>
           </div>
         </CardContent>
       </Card>
