@@ -24,6 +24,14 @@ const Navbar = () => {
               <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Dashboard
               </Link>
+              <a
+                href="https://research.gfiresearch.dev/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Deep Research
+              </a>
             </nav>
           </div>
           <div className="flex items-center gap-4">
