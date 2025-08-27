@@ -5,7 +5,10 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { ChevronsUpDown, Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const QuestionForm = () => {
   const [projects, setProjects] = useState<{ id: string; name: string }[]>([]);
@@ -13,6 +16,8 @@ const QuestionForm = () => {
   const [questions, setQuestions] = useState<{ id: string; text: string }[]>([]);
   const [answers, setAnswers] = useState<Record<string, { result: string; detail: string; source: string; source_entity: string }>>({});
   const [currentPage, setCurrentPage] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [open, setOpen] = useState(false);
   const questionsPerPage = 10;
 
   const isFormValid = useMemo(() => {
@@ -81,6 +86,7 @@ const QuestionForm = () => {
       alert('Please fill out all fields for every question before submitting.');
       return;
     }
+    setIsSubmitting(true);
 
     const formattedAnswers = {
       questions_main: Object.keys(answers).map((key, index) => {
@@ -127,6 +133,8 @@ const QuestionForm = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
       alert('An error occurred while submitting the form.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -157,16 +165,47 @@ const QuestionForm = () => {
         <CardContent className="space-y-8">
           <div>
             <Label htmlFor="project-select">Project</Label>
-            <Select value={selectedProject} onValueChange={setSelectedProject}>
-              <SelectTrigger id="project-select">
-                <SelectValue placeholder="Select a project" />
-              </SelectTrigger>
-              <SelectContent>
-                {projects.map(p => (
-                  <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  className="w-full justify-between"
+                >
+                  {selectedProject
+                    ? projects.find((project) => project.id === selectedProject)?.name
+                    : "Select a project"}
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-full p-0">
+                <Command>
+                  <CommandInput placeholder="Search project..." />
+                  <CommandEmpty>No project found.</CommandEmpty>
+                  <CommandGroup>
+                    {projects.map((project) => (
+                      <CommandItem
+                        key={project.id}
+                        value={project.id}
+                        onSelect={(currentValue) => {
+                          setSelectedProject(currentValue === selectedProject ? "" : currentValue);
+                          setOpen(false);
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            selectedProject === project.id ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                        {project.name}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
           <fieldset disabled={!selectedProject}>
             {paginatedQuestions.map((q, index) => (
@@ -231,8 +270,10 @@ const QuestionForm = () => {
               <Button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Previous</Button>
               <Button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next</Button>
             </div>
-            <Button onClick={handleTestFill} disabled>Test</Button>
-            <Button onClick={handleSubmit} disabled={!isFormValid}>Submit</Button>
+            <Button onClick={handleTestFill} >Test</Button>
+            <Button onClick={handleSubmit} disabled={!isFormValid || isSubmitting}>
+              {isSubmitting ? 'Submitting...' : 'Submit'}
+            </Button>
           </div>
         </CardContent>
       </Card>

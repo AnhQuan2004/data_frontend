@@ -39,6 +39,7 @@ const Dashboard = () => {
   const [projectId, setProjectId] = useState("solana");
   const [uploader, setUploader] = useState("jason");
   const [filename, setFilename] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFileUpload = (file: UploadedFile, rawFile: File) => {
     const newFile = { ...file, rawFile };
@@ -64,6 +65,7 @@ const Dashboard = () => {
   const handleSubmit = async () => {
     if (!selectedFile || !selectedFile.rawFile) return;
 
+    setIsSubmitting(true);
     const formData = new FormData();
     formData.append("file", selectedFile.rawFile);
     formData.append("proj_id", projectId);
@@ -77,6 +79,8 @@ const Dashboard = () => {
     } catch (error) {
       console.error("API upload error:", error);
       alert("File upload failed.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -132,7 +136,9 @@ const Dashboard = () => {
                   />
                 </div>
                 <div className="flex justify-end pt-4">
-                  <Button onClick={handleSubmit}>Submit</Button>
+                  <Button onClick={handleSubmit} disabled={isSubmitting}>
+                    {isSubmitting ? 'Submitting...' : 'Submit'}
+                  </Button>
                 </div>
               </>
             )}

@@ -27,3 +27,4 @@ ethereum
 aave
 polkadot
 bitcoin
+monero
