@@ -25,6 +25,6 @@ polkadot
 mantle
 ethereum
 aave
-polkadot
+xrp
 bitcoin
 monero
