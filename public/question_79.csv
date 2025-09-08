@@ -1,0 +1,80 @@
+q_id,muc_danh_gia,cau_hoi
+1,Thị trường & Cơ hội,Tốc độ tăng trưởng kép hàng năm (CAGR) của lĩnh vực dự án hoạt động có được dự báo > 20% không?
+2,Thị trường & Cơ hội,Tổng thị trường có thể tiếp cận (TAM) của ngách dự án có lớn hơn $10 tỷ USD không?
+3,Thị trường & Cơ hội,Dự án có đang giải quyết một vấn đề cốt lõi & lâu dài không?
+4,Thị trường & Cơ hội,Giải pháp của dự án có mang lại một lợi ích vượt trội ít nhất 5-10 lần so với giải pháp hiện có không?
+5,Thị trường & Cơ hội,Dự án có nằm trong nhóm lĩnh vực được dự báo sẽ tăng trưởng mạnh trong 6-18 tháng tới không?
+6,Sản phẩm & Công nghệ,Sản phẩm đã mainet & có lượng người dùng hàng tháng tối thiểu 10.000 chưa?
+7,Sản phẩm & Công nghệ,Sản phẩm do team tự phát triển chứ không phải fork từ các dự án khác?
+8,Sản phẩm & Công nghệ,Sản phẩm có phải là một đột phá công nghệ/mô hình mới hoặc có bản quyền riêng?
+9,Sản phẩm & Công nghệ,Sản phẩm đã được audit?
+10,Sản phẩm & Công nghệ,Sản phẩm đã được audit bởi 2 đơn vị trở lên?
+11,Sản phẩm & Công nghệ,"Sản phẩm có được audit bởi 2 đơn vị trở lên, trong đó có ít nhất 1 đơn vị Tier-1 không?"
+12,Sản phẩm & Công nghệ,Sản phẩm không có lỗi nghiêm trọng hoặc đã fix sau audit?
+13,Sản phẩm & Công nghệ,Số lượng Repos liên quan
+14,Sản phẩm & Công nghệ,Số lượng pull request lớn (L/XL) >10 trong 6 tháng
+15,Sản phẩm & Công nghệ,Sản phẩm có Github công khai?
+16,Sản phẩm & Công nghệ,Trung bình có từ 1–5 người đóng góp cho Github mỗi tháng?
+17,Sản phẩm & Công nghệ,Trung bình có từ 6–10 người đóng góp cho Github mỗi tháng?
+18,Sản phẩm & Công nghệ,Trung bình có trên 10 người đóng góp cho Github mỗi tháng?
+19,Sản phẩm & Công nghệ,Có từ 10–50 commit trong 2 tháng gần nhất?
+20,Sản phẩm & Công nghệ,Có từ 51–100 commit trong 2 tháng gần nhất?
+21,Sản phẩm & Công nghệ,Có hơn 100 commit trong 2 tháng gần nhất?
+22,Đội ngũ & Lãnh đạo,Trên 50% đội ngũ lãnh đạo có công khai thông tin không?
+23,Đội ngũ & Lãnh đạo,Chuyên môn của 50% đội ngũ lãnh đạo có trực tiếp liên quan đến lĩnh vực dự án không?
+24,Đội ngũ & Lãnh đạo,Trên 50% đội ngũ lãnh đạo có kinh nghiệm >2 năm trong ngành crypto không?
+25,Đội ngũ & Lãnh đạo,Có ≥1 lãnh đạo có kinh nghiệm phát triển kinh doanh/marketing/gọi vốn thành công không?
+26,Đội ngũ & Lãnh đạo,Đội ngũ sáng lập từng ra mắt thành công 1 sản phẩm công nghệ chưa?
+27,Đội ngũ & Lãnh đạo,"Đội ngũ duy trì hoạt động phát triển (GitHub, marketing, AMA) ngay cả khi downtrend không?"
+28,Đội ngũ & Lãnh đạo,Đội ngũ sáng lập chưa từng dính vào scam/rug pull/bê bối lớn đúng không?
+29,Đội ngũ & Lãnh đạo,Đội ngũ từng được VC uy tín hoặc dev nổi tiếng công nhận tích cực chưa?
+30,Đội ngũ & Lãnh đạo,Có founder nào có >5k follower trên X không?
+31,Cộng đồng & Marketing,Lượng follow trên X > 50.000?
+32,Cộng đồng & Marketing,Thành viên Telegram > 50.000?
+33,Cộng đồng & Marketing,Thành viên Discord > 20.000?
+34,Cộng đồng & Marketing,Có cộng đồng bản địa chính thức ≥3 quốc gia?
+35,Cộng đồng & Marketing,"Có chiến lược thu hút user bền vững (Ambassador, Retroactive, KOL, Partner…)?"
+36,Cộng đồng & Marketing,Engagement rate trung bình trên X > 2% không?
+37,Cộng đồng & Marketing,Có AMA/workshop/sự kiện cộng đồng ≥1 lần/tháng không?
+38,Cộng đồng & Marketing,Có >10 smart follower trên X không?
+39,Cộng đồng & Marketing,Dự án chưa từng bị tố scam/scandal lớn?
+40,Cộng đồng & Marketing,Sentiment cộng đồng tích cực trong 1 tháng gần nhất?
+41,Partner & Backer,Dự án có công khai danh sách backer và được xác thực không?
+42,Partner & Backer,Có angel investors là founder dự án thành công khác không?
+43,Partner & Backer,Có quỹ Tier-3 crypto không?
+44,Partner & Backer,"Có quỹ Tier-2 crypto (Polychain, Dragonfly…)?"
+45,Partner & Backer,"Có ≥1 quỹ Tier-1 (a16z, Paradigm, Binance Labs…)?"
+46,Partner & Backer,Quỹ Tier-1/2 có đóng vai trò lead investor không?
+47,Partner & Backer,"Có market maker lớn (Jump, Wintermute) không?"
+48,Partner & Backer,Có đối tác chiến lược với top 50 CMC không?
+49,Partner & Backer,Có cung cấp giải pháp cho công ty Web2 >10M users không?
+50,Partner & Backer,Có cung cấp giải pháp cho tổ chức chính phủ không?
+51,Tokenomics,"Có mô tả rõ ràng, công khai về tỷ lệ phân bổ token không?"
+52,Tokenomics,"Có mô tả rõ ràng, công khai về thời gian phân bổ không?"
+53,Tokenomics,Tổng thời gian phân bổ token ≥4 năm?
+54,Tokenomics,"Team vesting ≥4 năm, cliff ≥1 năm?"
+55,Tokenomics,"Investor vesting ≥2 năm, cliff ≥6 tháng?"
+56,Tokenomics,Max Supply được xác định rõ và cố định?
+57,Tokenomics,Tỷ lệ lạm phát <5%/năm?
+58,Tokenomics,"Có cơ chế kiểm soát lạm phát (halving, burn…)?"
+59,Tokenomics,Token là phương tiện bắt buộc cho ≥1 sản phẩm/dịch vụ?
+60,Tokenomics,Token là phương tiện bắt buộc cho ≥3 sản phẩm/dịch vụ?
+61,Tokenomics,"Có cơ chế khuyến khích giảm lưu thông (lock, stake dài hạn)?"
+62,Tokenomics,"Có cơ chế khuyến khích đóng góp cộng đồng (LP, governance…)?"
+63,Tokenomics,Doanh thu có dùng 1 phần để buyback không?
+64,Tokenomics,Có cơ chế chia sẻ phần thưởng doanh thu cho holder/staker?
+65,Tokenomics,Hơn 30% doanh thu dùng tăng giá trị token không?
+66,Tokenomics,Có cơ chế đo lường cụ thể incentive dựa trên đóng góp không?
+67,Tokenomics,Có cơ chế phạt (slashing) cho hành vi độc hại không?
+68,Tokenomics,Tokenomics có thể điều chỉnh tham số khi thị trường thay đổi không?
+69,Tokenomics,Unlock TGE cho early participants <5%?
+70,Tokenomics,50% token phát hành trong >2 năm?
+71,Tokenomics,Token phát hành hàng tháng <50% volume giao dịch TB 30 ngày?
+72,Tokenomics,"Vesting tuyến tính, không unlock sốc?"
+73,Hiệu suất thị trường,Giá token hiện tại > giá vòng gọi vốn sớm?
+74,Hiệu suất thị trường,Giá token hiện tại > giá TGE?
+75,Hiệu suất thị trường,Max drawdown <80%?
+76,Hiệu suất thị trường,Max drawdown <50%?
+77,Hiệu suất thị trường,Max drawdown <20%?
+78,Hiệu suất thị trường,Token đã niêm yết ≥1 CEX top 10?
+79,Hiệu suất thị trường,Token đã niêm yết ≥3 CEX top 10?

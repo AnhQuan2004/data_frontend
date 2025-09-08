@@ -18,11 +18,11 @@ const Navbar = () => {
               <Link to="/" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Question Form
               </Link>
-              <Link to="/all-files" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-                All Files
-              </Link>
               <Link to="/dashboard" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Dashboard
+              </Link>
+              <Link to="/visualize-data" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                Visualize Data
               </Link>
               <a
                 href="https://research.gfiresearch.dev/"

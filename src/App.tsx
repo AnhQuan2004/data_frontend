@@ -6,11 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
-import AllFiles from "./pages/AllFiles";
 import NotFound from "./pages/NotFound";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
 import QuestionForm from "./pages/QuestionForm";
+import VisualizeData from "./pages/VisualizeData";
 import { AuthProvider } from "./hooks/useAuth";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -35,8 +35,8 @@ const App = () => (
                       <Navbar />
                       <Routes>
                         <Route path="/" element={<QuestionForm />} />
-                        <Route path="/all-files" element={<AllFiles />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/visualize-data" element={<VisualizeData />} />
                         <Route path="*" element={<NotFound />} />
                       </Routes>
                     </>

@@ -43,3 +43,13 @@ export const rejectFile = async (objectName: string, feedback: string) => {
     method: "POST",
   });
 };
+export const getResearchData = async () => {
+  // The API returns total_records, so we can fetch them all in one go
+  // by setting a large enough limit. This avoids pagination issues.
+  const response = await fetch("https://api-research-team-1094890588015.us-central1.run.app/?limit=10000");
+  if (!response.ok) {
+    throw new Error("Failed to fetch research data");
+  }
+  // The response already contains the `data` array, so we can return it directly.
+  return response.json();
+};
